@@ -1,3 +1,15 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fork of gr-osmosdr which adds an option to disable PLL dithering for the rtl-sdr.
+Requires an experimental version of librtlsdr to be installed (either keenerd's
+or tejeez's):
+
+https://github.com/keenerd/rtl-sdr
+https://github.com/tejeez/rtl-sdr
+
+To use this option add disable_dither=1 in the device arguments field of the
+RTL-SDR source block.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 While primarily being developed for the OsmoSDR hardware, this block
 as well supports:
 

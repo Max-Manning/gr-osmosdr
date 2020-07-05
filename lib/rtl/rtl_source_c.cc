@@ -93,7 +93,7 @@ rtl_source_c::rtl_source_c (const std::string &args)
   int ret;
   int index;
   int bias_tee = 0;
-  unsigned int dev_index = 0, rtl_freq = 0, tuner_freq = 0, direct_samp = 0;
+  unsigned int dev_index = 0, rtl_freq = 0, tuner_freq = 0, direct_samp = 0, disable_dither=0;
   unsigned int offset_tune = 0;
   char manufact[256];
   char product[256];
@@ -138,6 +138,9 @@ rtl_source_c::rtl_source_c (const std::string &args)
   }
 
   std::cerr << std::endl;
+
+  if (dict.count("disable_dither"))
+    disable_dither = (unsigned int)boost::lexical_cast< double >( dict["disable_dither"] );
 
   if (dict.count("rtl_xtal"))
     rtl_freq = (unsigned int)boost::lexical_cast< double >( dict["rtl_xtal"] );
@@ -207,6 +210,12 @@ rtl_source_c::rtl_source_c (const std::string &args)
   ret = rtlsdr_set_agc_mode(_dev, int(_auto_gain));
   if (ret < 0)
     throw std::runtime_error("Failed to set agc mode.");
+
+  if (disable_dither) {
+    ret = rtlsdr_set_dithering(_dev, 0);
+    if (ret < 0)
+      throw std::runtime_error("Failed to disable PLL dithering.");
+  }
 
   if (direct_samp) {
     ret = rtlsdr_set_direct_sampling(_dev, direct_samp);
