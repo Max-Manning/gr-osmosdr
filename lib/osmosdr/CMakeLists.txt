@@ -26,7 +26,7 @@ target_include_directories(gnuradio-osmosdr PRIVATE
     ${LIBOSMOSDR_INCLUDE_DIRS}
 )
 
-target_link_libraries(gnuradio-osmosdr
+APPEND_LIB_LIST(
     ${LIBOSMOSDR_LIBRARIES}
 )
 
